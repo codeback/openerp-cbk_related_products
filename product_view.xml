@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>        
+        <record id="parent_product_form_view" model="ir.ui.view">
+            <field name="name">parent.product.form.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath
+                        expr="//page[@string='Information']/group"
+                        position="after">
+                        <group>
+                            <field name="parent_prod_id"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="parent_product_tree_view" model="ir.ui.view">
+            <field name="name">parent.product.tree.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="parent_prod_id"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+        
+        <record id="parent_product_search_form_view" model="ir.ui.view">
+            <field name="name">parent.product.search.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                <search string="Product">
+                    <filter string="Parent products" icon="terp-accessories-archiver" domain="[('parent_prod_id','=',False)]"/>
+                </search>
+                <group  expand='0' string='Group by...'>
+                    <filter string='Related products' icon="terp-go-home" domain="[]" context="{'group_by' : 'parent_prod_id'}"/>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>
